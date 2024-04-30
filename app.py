@@ -5,7 +5,7 @@ import git
 # https://GITHUB-TOKEN-HERE@github.com/GITUHB-USERNAME/mysite.git
 
 ##############################
-@post('/SECRET-URL-HERE')
+@post('/secret')
 def git_update():
   repo = git.Repo('./mysite')
   origin = repo.remotes.origin
@@ -15,6 +15,6 @@ def git_update():
 
 @get("/")
 def _():
-    return "xx"
+    return "xxx"
 
 application = default_app()
