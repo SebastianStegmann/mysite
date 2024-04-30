@@ -15,6 +15,6 @@ def git_update():
 
 @get("/")
 def _():
-    return "xxx"
+    return "xxxxxx"
 
 application = default_app()
