@@ -1,4 +1,4 @@
-from bottle import get, post, default_app
+from bottle import get, post, default_app, run
 
 import git
 
@@ -17,4 +17,9 @@ def git_update():
 def _():
     return "xxaxaxxx"
 
-application = default_app()
+try:
+  import production
+  application = default_app()
+except Exception as ex:
+  print("Running local server")
+  run(host="127.0.0.1", port=80, debug=True, reloader=True)
