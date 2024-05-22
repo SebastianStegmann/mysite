@@ -26,12 +26,7 @@ def _():
 
     rows = cursor.fetchall()
     
-    users = {}
-    for row in rows:
-        users =+ row
-
-    print("hi")
-    return template("signup.html", users = users)
+    return template("signup.html", users = "Hej")
 
 
 @post("/signup")
