@@ -26,42 +26,6 @@ def _():
 
 @post("/signup")
 def _():
-    con = sql.connect("users.db")
-    cursor = con.cursor()
-    # cursor.execute("DROP TABLE IF EXISTS criminals")
-    cursor.execute('''CREATE TABLE IF NOT EXISTS users (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        email TEXT,
-                        password TEXT,
-                        active BOOLEAN,
-                        key TEXT,
-                        token TEXT,
-                        created_at INTEGER DEFAULT (strftime('%s', 'now'))
-                        )''')
-
-    cursor = con.cursor()
-    email = request.forms.get("email", "")
-    password = request.forms.get("password", "")
-    
-    #TODO hash password
-
-    key = 12345
-    active = False 
-
-    #generate token 
-    token = 1
-
-
-    cursor.execute("INSERT INTO users (email, password, active, key, token) VALUES (?, ?, ?, ?, ?)",
-                   (email, password, active, key, token))
-    
-    cursor = con.cursor()
-    cursor.execute("SELECT * FROM users")
-    rows = cursor.fetchall()
-
-    # Print each row
-    con.commit()
-    con.close()
     return "x"
 
 try:
