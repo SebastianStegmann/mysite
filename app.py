@@ -1,4 +1,4 @@
-from bottle import get, post, default_app, run
+from bottle import get, post, default_app, run, template
 
 import git
 
@@ -19,7 +19,7 @@ def _():
 
 @get("/signup")
 def _():
-    return "x"
+    return template("signup.html")
 
 try:
   import production
