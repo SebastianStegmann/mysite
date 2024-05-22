@@ -30,7 +30,7 @@ def _():
     for row in rows:
         users =+ row
 
-    
+    print("hi")
     return template("signup.html", users = users)
 
 
