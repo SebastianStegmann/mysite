@@ -60,12 +60,9 @@ def _():
     rows = cursor.fetchall()
 
     # Print each row
-    users = []
-    for row in rows:
-        users =+ row
     con.commit()
     con.close()
-    return json.dumps(users)
+    return "x"
 
 try:
   import production
