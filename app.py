@@ -1,6 +1,7 @@
-from bottle import get, post, default_app, run, template
+from bottle import get, post, default_app, run, template, request
 
 import git
+import sqlite3 as sql
 
 # https://GITHUB-TOKEN-HERE@github.com/GITUHB-USERNAME/mysite.git
 
@@ -15,11 +16,54 @@ def git_update():
 
 @get("/")
 def _():
-    return "xxxxxaxaxxx"
+    return "Crime server"
 
 @get("/signup")
 def _():
+    
     return template("signup.html")
+
+
+@post("/signup")
+def _():
+    con = sql.connect("users.db")
+    cursor = con.cursor()
+    # cursor.execute("DROP TABLE IF EXISTS criminals")
+    cursor.execute('''CREATE TABLE IF NOT EXISTS users (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        email TEXT,
+                        password TEXT,
+                        active BOOLEAN,
+                        key TEXT,
+                        token TEXT,
+                        created_at INTEGER DEFAULT (strftime('%s', 'now'))
+                        )''')
+
+    cursor = con.cursor()
+    email = request.forms.get("email", "")
+    password = request.forms.get("password", "")
+    
+    #TODO hash password
+
+    key = 12345
+    active = False 
+
+    #generate token 
+    token = 1
+
+
+    cursor.execute("INSERT INTO users (email, password, active, key, token) VALUES (?, ?, ?, ?, ?)",
+                   (email, password, active, key, token))
+    
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+
+    # Print each row
+    for row in rows:
+        print(row)
+    con.commit()
+    con.close()
+
 
 try:
   import production
