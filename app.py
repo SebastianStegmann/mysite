@@ -60,11 +60,12 @@ def _():
     rows = cursor.fetchall()
 
     # Print each row
+    users = []
     for row in rows:
-        print(row)
+        users =+ row
     con.commit()
     con.close()
-
+    return users
 
 try:
   import production
