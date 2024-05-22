@@ -5,6 +5,7 @@ import sqlite3 as sql
 import routes.verify
 import routes.get_token
 import routes.signup
+import routes.index
 
 # https://GITHUB-TOKEN-HERE@github.com/GITUHB-USERNAME/mysite.git
 
@@ -19,7 +20,7 @@ def git_update():
 
 @get("/")
 def _():
-    return "Crime server x"
+    return template('/index')
 
 try:
   import production
