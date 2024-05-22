@@ -17,6 +17,10 @@ def git_update():
 def _():
     return "xxxxxaxaxxx"
 
+@get("/signup")
+def _():
+    return "x"
+
 try:
   import production
   application = default_app()
