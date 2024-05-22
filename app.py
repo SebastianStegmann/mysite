@@ -26,7 +26,7 @@ def _():
 
 @post("/signup")
 def _():
-    return "x"
+    return {"x": 1}
 
 try:
   import production
