@@ -18,9 +18,6 @@ def git_update():
   origin.pull()
   return ""
 
-@get("/")
-def _():
-    return template('/index')
 
 try:
   import production
