@@ -1,8 +1,8 @@
-from bottle import get, post, default_app, run, template, request
+from bottle import get, post, default_app, run, template, request, redirect
 import json
 import git
 import sqlite3 as sql
-
+import routes.verify
 # https://GITHUB-TOKEN-HERE@github.com/GITUHB-USERNAME/mysite.git
 
 ##############################
@@ -20,21 +20,26 @@ def _():
 
 @get("/signup")
 def _():
-    #hey
     con = sql.connect("users.db")
     cursor = con.cursor()
     cursor.execute("SELECT * FROM users")
 
     rows = cursor.fetchall()
     
-    return template("signup.html", users = "Hej")
+    users = []
+    
+    for row in rows:
+      users.append(row)
+    
+    return template("signup.html", users = users)
 
 
 @post("/signup")
 def _():
+  try:
     con = sql.connect("users.db")
     cursor = con.cursor()
-    # cursor.execute("DROP TABLE IF EXISTS criminals")
+    # cursor.execute("DROP TABLE IF EXISTS users")
     cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         email TEXT,
@@ -53,10 +58,10 @@ def _():
     #TODO hash password
 
     key = 12345
-    active = False 
+    active = 0
 
     #generate token 
-    token = 1
+    token = 987654321
 
 
     cursor.execute("INSERT INTO users (email, password, active, key, token) VALUES (?, ?, ?, ?, ?)",
@@ -69,11 +74,14 @@ def _():
     # Print each row
     con.commit()
     con.close()
-    return json.dumps(rows)
+    return redirect('/verify')
+  except Exception as ex:
+    print(ex)
+    return(ex)
 
 try:
   import production
   application = default_app()
 except Exception as ex:
   print("Running local server")
-  run(host="127.0.0.1", port=80, debug=True, reloader=True)
+  run(host="127.0.0.1", port=1234, debug=True, reloader=True)
