@@ -1,5 +1,5 @@
 from bottle import get, post, default_app, run, template, request
-
+import json
 import git
 import sqlite3 as sql
 
@@ -65,7 +65,7 @@ def _():
         users =+ row
     con.commit()
     con.close()
-    return users
+    return json.dumps(users)
 
 try:
   import production
