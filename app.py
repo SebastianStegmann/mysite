@@ -20,6 +20,7 @@ def _():
 
 @get("/signup")
 def _():
+    #hey
     con = sql.connect("users.db")
     cursor = con.cursor()
     cursor.execute("SELECT * FROM users")
