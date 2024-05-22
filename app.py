@@ -19,7 +19,7 @@ def git_update():
 
 @get("/")
 def _():
-    return "Crime server"
+    return "Crime server x"
 
 try:
   import production
