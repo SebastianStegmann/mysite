@@ -55,6 +55,7 @@ def _():
     cursor.execute("INSERT INTO users (email, password, active, key, token) VALUES (?, ?, ?, ?, ?)",
                    (email, password, active, key, token))
     
+    cursor = con.cursor()
     cursor.execute("SELECT * FROM users")
     rows = cursor.fetchall()
 
