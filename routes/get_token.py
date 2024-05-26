@@ -19,31 +19,30 @@ def _():
     password = request.forms.get("password", "")
     
     cursor.execute('''
-                  SELECT password, token
+                  SELECT password, token, active
                   FROM users
                   WHERE email = ?
                    ''', (email,))
     
     user = cursor.fetchone()
 
-    
+    print(json.dumps(user)) 
     if user is None:
         response.status = 400
         return json.dumps({"error": "User not found"})
         
+    if user[2] == False:
+        response.status = 400
+        return json.dumps({"error": "User not active, find your verification mail in your inboc"})
+
     if user[0] != password:
         response.status = 400
         return json.dumps({"error": "Invalid password"})
 
-    cursor.execute('''
-                      UPDATE users
-                      SET active = 1
-                      WHERE email = ?
-                       ''', (email,))
     con.commit()
 
     response.content_type = 'application/json'
-    return f" Account verified! Nice! Your api token is: {user[1]}"
+    return f" Cool, here it is: Your api token is: {user[1]}"
 
   except sql.Error as sql_ex:
         response.status = 400
