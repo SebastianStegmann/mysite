@@ -16,10 +16,10 @@ def _():
     con = sql.connect("users.db")
     cursor = con.cursor()
     email = request.forms.get("email", "")
-    key = request.forms.get("key", "")
+    password = request.forms.get("password", "")
     
     cursor.execute('''
-                  SELECT key, token
+                  SELECT password, token
                   FROM users
                   WHERE email = ?
                    ''', (email,))
@@ -31,9 +31,9 @@ def _():
         response.status = 400
         return json.dumps({"error": "User not found"})
         
-    if user[0] != key:
+    if user[0] != password:
         response.status = 400
-        return json.dumps({"error": "Invalid key"})
+        return json.dumps({"error": "Invalid password"})
 
     cursor.execute('''
                       UPDATE users
@@ -43,7 +43,7 @@ def _():
     con.commit()
 
     response.content_type = 'application/json'
-    return f" Account verified! Nice! Your api key is: {user[1]}"
+    return f" Account verified! Nice! Your api token is: {user[1]}"
 
   except sql.Error as sql_ex:
         response.status = 400

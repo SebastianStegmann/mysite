@@ -43,7 +43,7 @@ def _():
     con.commit()
 
     response.content_type = 'application/json'
-    return f" Account verified! Nice! Your api key is: {user[1]}"
+    return f" Account verified! Nice! Your api token is: {user[1]}"
 
   except sql.Error as sql_ex:
         response.status = 400
