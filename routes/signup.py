@@ -5,7 +5,8 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import routes.verify
-
+import uuid
+import random
 
 def send_email(receiver_email, key):
     try:
@@ -103,12 +104,11 @@ def _():
             raise Exception("Error sending email: user already exists with this email")
         #TODO hash password
 
-        key = 12345
+        key = random.randint(10000,99999)
         active = 0
 
-        print('hey')
         #generate token 
-        token = 987654321
+        token = uuid.uuid4()
 
         cursor.execute("INSERT INTO users (email, password, active, key, token) VALUES (?, ?, ?, ?, ?)",
                        (email, password, active, key, token))
