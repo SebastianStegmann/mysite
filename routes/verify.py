@@ -33,7 +33,7 @@ def _():
         
     if user[0] != key:
         response.status = 400
-        return json.dumps({"error": "Invalid key"})
+        return json.dumps({"error": "Invalid password "})
 
     cursor.execute('''
                       UPDATE users
