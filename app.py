@@ -22,24 +22,24 @@ def git_update():
 @post('/update-crime')
 def _():
     data = request.json
-    token = data.get("token","")
+    token = data.get("token")
     #token = request.forms.get("token", "")
     # token = json.dumps(token)
     # return token
-    
+
     if token == None:
-      response.type = 400
+      response.status = 400
       return {"Error": "No token included"}
-    
+
     con = sql.connect("users.db")
     cursor = con.cursor()
-    
+
     cursor.execute('SELECT active FROM users WHERE token = ?', (token,))
-    
+
     active = cursor.fetchone()
-    
+
     if active is None or active[0] != True:
-        response.type = 400
+        response.status = 400
         return {"Error": "Account is not active or not found"}
 
     # Read data from JSON file
@@ -57,10 +57,10 @@ def _():
 
 
     if data == None:
-      response.type = 400
+      response.status = 400
       return {"Error": "no such data"}
 
-    response.type = 200
+    response.status = 200
     return json_data
 
 
