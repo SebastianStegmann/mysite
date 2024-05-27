@@ -5,6 +5,7 @@ import routes.get_token
 import routes.signup
 import routes.index
 import routes.verify
+import routes.truncate
 import sqlite3 as sql
 
 # https://GITHUB-TOKEN-HERE@github.com/GITUHB-USERNAME/mysite.git
