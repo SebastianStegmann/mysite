@@ -21,10 +21,10 @@ def git_update():
 
 @post('/update-crime')
 def _():
-    #data = request.json
-    #token = data.get("token")
-    r = request.PARAMS.get("token")
-    token = json.dumps(r)
+    data = request.json
+    token = data.get("token")
+    # r = request.PARAMS.get("token")
+    # token = json.dumps(r)
     
     if token == None:
       response.status = 400
