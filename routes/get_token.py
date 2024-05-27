@@ -13,7 +13,7 @@ def _():
 @post('/get-token')
 def _():
   try:
-    con = sql.connect("mysite/users.db")
+    con = sql.connect("../users.db")
     cursor = con.cursor()
     email = request.forms.get("email", "")
     password = request.forms.get("password", "")

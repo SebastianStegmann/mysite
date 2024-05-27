@@ -62,7 +62,7 @@ def _():
 
 @post('/truncate')
 def _():
-    con = sql.connect("mysite/users.db")
+    con = sql.connect("./users.db")
     cursor = con.cursor()
     data = request.json
     code = data.get("code","")
