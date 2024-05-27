@@ -16,10 +16,10 @@ def _():
     con = sql.connect("users.db")
     cursor = con.cursor()
     email = request.forms.get("email", "")
-    password = request.forms.get("key", "")
+    key = request.forms.get("key", "")
     
     cursor.execute('''
-                  SELECT password, token
+                  SELECT key, token
                   FROM users
                   WHERE email = ?
                    ''', (email,))
@@ -31,7 +31,7 @@ def _():
         response.status = 400
         return json.dumps({"error": "User not found"})
         
-    if user[0] != password:
+    if user[0] != key:
         response.status = 400
         return json.dumps({"error": "Invalid password "})
 
