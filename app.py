@@ -23,8 +23,8 @@ def git_update():
 def _():
     #data = request.json
     #token = data.get("token")
-    token = request.POST.get("token")
-    token = json.dumps(token)
+    r = request.POST.get("token")
+    token = json.dumps(r)
     
     if token == None:
       response.status = 400
