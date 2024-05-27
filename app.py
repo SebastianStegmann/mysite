@@ -5,6 +5,7 @@ import routes.get_token
 import routes.signup
 import routes.index
 import routes.verify
+import sqlite3 as sql
 
 # https://GITHUB-TOKEN-HERE@github.com/GITUHB-USERNAME/mysite.git
 
@@ -36,11 +37,24 @@ def _():
 
     if data == None:
       response.type = 400
-      return {"Error: no such data"}
+      return {"Error": "no such data"}
 
     response.type = 200
     return json_data
 
+@post('/truncate')
+def _():
+    con = sql.connect("users.db")
+    cursor = con.cursor()
+    code = request.forms.get("code", "")
+    
+    if code != "1911771620":
+      response.type = 400
+      return {"Error": "Wrong code sent"}
+    cursor.execute("DROP FROM users") 
+    
+    response.type = 200
+    return {"Info": "Database was truncated"}
 try:
   import production
   application = default_app()
