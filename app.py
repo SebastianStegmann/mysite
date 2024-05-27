@@ -23,7 +23,7 @@ def git_update():
 def _():
     #data = request.json
     #token = data.get("token")
-    r = request.POST.get("token")
+    r = request.PARAMS.get("token")
     token = json.dumps(r)
     
     if token == None:
