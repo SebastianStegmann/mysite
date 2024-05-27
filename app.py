@@ -67,7 +67,7 @@ def _():
     code = request.forms.get("code", "")
     
     response.content_type = 'application/json'
-    if code != "1911771620":
+    if code['code'] != "1911771620":
       response.type = 400
       return {"Error": "Wrong code sent"}
     cursor.execute("DROP FROM users") 
