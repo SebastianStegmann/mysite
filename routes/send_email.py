@@ -10,7 +10,7 @@ def send_email(receiver_email):
   try:
     # return request.json
     email = str(request.json['email'])
-    con = sql.connect("users.db")
+    con = sql.connect("mysite/users.db")
 
     cursor = con.cursor()
     cursor.execute("SELECT * FROM users WHERE email = ?", (email,))

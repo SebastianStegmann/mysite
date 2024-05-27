@@ -13,18 +13,7 @@ def send_email(receiver_email, key):
       # For brevity, I'm omitting the email sending code
         print('start of send email')
         # email = str(request.json['email'])
-        '''
-        con = sql.connect("users.db")
-        
-        cursor = con.cursor()
-        cursor.execute("SELECT * FROM users WHERE email = ?", (receiver_email,))
-        user = cursor.fetchone()
-        if user == None:
-            raise Exception({"Error: that user doesnt exist"})
 
-        con.commit()
-        con.close()
-        '''
         sender_email = "billestegmann@gmail.com"
         password = "gghqsdohnpnxqyev"
 
@@ -74,7 +63,7 @@ def send_email(receiver_email, key):
 @get("/signup")
 def _():
     try:
-        con = sql.connect("users.db")
+        con = sql.connect("mysite/users.db")
         cursor = con.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -97,59 +86,11 @@ def _():
         return template("signup.html", users=users)
     except Exception as ex:
         return f"Internal Server Error: {str(ex)}"
-'''
-@post("/signup")
-def _():
-    try:
-        con = sql.connect("users.db")
-        cursor = con.cursor()
-
-        email = request.forms.get("email", "")
-        password = request.forms.get("password", "")
-
-        
-        cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
-        existing_user = cursor.fetchone()
-        if existing_user:
-            # If user already exists, return an error
-            return json.dumps({'status': 'error', 'message': 'User with this email already exists.'})
-        #TODO hash password
-
-        key = 12345
-        active = 0
-
-        #generate token 
-        token = 987654321
-
-        cursor.execute("INSERT INTO users (email, password, active, key, token) VALUES (?, ?, ?, ?, ?)",
-                       (email, password, active, key, token))
-         
-        print('move')
-        con.commit()
-        con.close()
-        try:
-            success, error = send_email(email)
-            if success:
-                print('Email sent successfully. Redirecting...')
-            else:
-                print("error sending emails", error)
-                return json.dumps({'status': 'error', 'message': 'Signup successful but failed to send email.', 'error': str(error)})
-        except Exception as Ex:
-            print('exception occurededed', Ex)
-            return json.dumps({"error": str(Ex)})
-        finally:
-            print('final')
-            
-            return redirect('/verify')
-    except Exception as ex:
-        print(ex)
-        return f"Internal Server Error: {str(ex)}"
-    '''
 
 @post("/signup")
 def _():
     try:
-        con = sql.connect("users.db")
+        con = sql.connect("mysite/users.db")
         cursor = con.cursor()
 
         email = request.forms.get("email", "")

@@ -13,7 +13,7 @@ def _():
 @post('/verify')
 def _():
   try:
-    con = sql.connect("users.db")
+    con = sql.connect("mysite/users.db")
     cursor = con.cursor()
     email = request.forms.get("email", "")
     key = request.forms.get("key", "")
