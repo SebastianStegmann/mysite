@@ -23,7 +23,7 @@ def git_update():
 def _():
     #data = request.json
     #token = data.get("token")
-    token = request.forms.get("token", "")
+    token = request.forms.get("token")
     token = json.dumps(token)
     # return token
 
