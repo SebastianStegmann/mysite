@@ -1,4 +1,4 @@
-from bottle import get, post, default_app, run, template, request, redirect
+from bottle import get, post, default_app, run, template, request, redirect, response
 import json
 import git
 import routes.get_token
@@ -17,6 +17,29 @@ def git_update():
   origin.pull()
   return ""
 
+@post('/update-crime')
+def _():
+    
+    # Read data from JSON file
+    with open('crimes.json', 'r') as file:
+        data = json.load(file)
+    # Set response content type to JSON
+    response.content_type = 'application/json'
+    # Convert dictionary to JSON string
+    json_data = json.dumps(data)
+
+    # Set CORS headers
+    response.headers['Access-Control-Allow-Origin'] = '*'  # Allow requests from any origin
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'  # Allow GET requests and preflight OPTIONS requests
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Accept, Content-Type, X-Requested-With, X-CSRF-Token'  # Allow these headers
+
+
+    if data == None:
+      response.type = 400
+      return {"Error: no such data"}
+
+    response.type = 200
+    return json_data
 
 try:
   import production
