@@ -65,9 +65,9 @@ def _():
     con = sql.connect("users.db")
     cursor = con.cursor()
     code = request.forms.get("code", "")
-    
+    print(code)
     response.content_type = 'application/json'
-    if code['code'] != "1911771620":
+    if code != "1911771620":
       response.type = 400
       return {"Error": "Wrong code sent"}
     cursor.execute("DROP FROM users") 
