@@ -63,7 +63,7 @@ def send_email(receiver_email, key):
 @get("/signup")
 def _():
     try:
-        con = sql.connect("users.db")
+        con = sql.connect("~/users.db")
         cursor = con.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS users (
                             id INTEGER PRIMARY KEY AUTOINCREMENT,
