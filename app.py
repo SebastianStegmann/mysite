@@ -35,10 +35,9 @@ def _():
     
     active = cursor.fetchone()
     
-    if active[0] != True:
+    if active is None or active[0] != True:
         response.type = 400
-        return {"Error": "Account is not active"}
-    
+        return {"Error": "Account is not active or not found"}
 
     # Read data from JSON file
     with open('crimes.json', 'r') as file:

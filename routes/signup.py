@@ -104,11 +104,11 @@ def _():
             raise Exception("Error sending email: user already exists with this email")
         #TODO hash password
 
-        key = random.randint(10000,99999)
+        key = str(random.randint(10000,99999))
         active = 0
 
         #generate token 
-        token = uuid.uuid4()
+        token = str(uuid.uuid4())
 
         cursor.execute("INSERT INTO users (email, password, active, key, token) VALUES (?, ?, ?, ?, ?)",
                        (email, password, active, key, token))
