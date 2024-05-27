@@ -23,10 +23,9 @@ def git_update():
 def _():
     #data = request.json
     #token = data.get("token")
-    token = request.forms.get("token")
+    token = request.POST.get("token")
     token = json.dumps(token)
-    # return token
-
+    
     if token == None:
       response.status = 400
       return {"Error": "No token included"}
