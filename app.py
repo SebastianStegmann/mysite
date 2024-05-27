@@ -62,6 +62,7 @@ def _():
 
 @post('/truncate')
 def _():
+  try:
     con = sql.connect("users.db")
     cursor = con.cursor()
     data = request.json
@@ -75,6 +76,9 @@ def _():
     cursor.close()
     response.type = 200
     return {"Info": "Database was truncated"}
+  except Exception as Ex:
+    return {"Error": str(Ex)}
+
 try:
   import production
   application = default_app()
