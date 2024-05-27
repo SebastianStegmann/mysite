@@ -64,14 +64,15 @@ def _():
 def _():
     con = sql.connect("users.db")
     cursor = con.cursor()
-    code = request.forms.get("code", "")
-    print(code)
+    data = request.json
+    code = data.get("code","")
+
     response.content_type = 'application/json'
     if code != "1911771620":
       response.type = 400
       return {"Error": "Wrong code sent"}
-    cursor.execute("DROP FROM users") 
-    
+    cursor.execute("DELETE FROM users") 
+    cursor.close()
     response.type = 200
     return {"Info": "Database was truncated"}
 try:
